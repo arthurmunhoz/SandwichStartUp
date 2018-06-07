@@ -1,10 +1,15 @@
 package br.com.arthurmunhoz.sandwichstartup.activities;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +23,8 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.zip.Inflater;
+
 import br.com.arthurmunhoz.sandwichstartup.R;
 import br.com.arthurmunhoz.sandwichstartup.adapters.SandwichAdapter;
 import br.com.arthurmunhoz.sandwichstartup.model.Order;
@@ -26,6 +33,7 @@ public class OrderActivity extends AppCompatActivity
 {
     //Declaring variables
     Context context;
+    private final static int ACTIVITY_RESULT = 1;
     Order order = new Order();
     TextView tvTitle;
     TextView tvEmptyCart;
@@ -80,10 +88,10 @@ public class OrderActivity extends AppCompatActivity
         context = this;
 
         //Attaching XML objects
-        btnPay.findViewById(R.id.btnPay);
-        rvOrder.findViewById(R.id.rvOrder);
-        tvEmptyCart.findViewById(R.id.tvEmptyCart);
-        btnBackToShopping.findViewById(R.id.btnBackToShopping);
+        btnPay = findViewById(R.id.btn_pay);
+        rvOrder = findViewById(R.id.rvOrder);
+        tvEmptyCart = findViewById(R.id.tvEmptyCart);
+        btnBackToShopping = findViewById(R.id.btnBackToShopping);
 
         //Changing the color of the StatusBar and NavigationBar
         Window window = getWindow();
@@ -104,9 +112,10 @@ public class OrderActivity extends AppCompatActivity
             actionBar.setCustomView(mCustomView);
             actionBar.setDisplayShowCustomEnabled(true);
             Toolbar parent = (Toolbar) mCustomView.getParent();
-            parent.setContentInsetsAbsolute(0,0);
+            parent.setContentInsetsAbsolute(0, 0);
 
             tvTitle = mCustomView.findViewById(R.id.tvTitle);
+            tvTitle.setText(getString(R.string.order_title));
 
             RelativeLayout btn_backArrow = mCustomView.findViewById(R.id.btn_backArrow);
             btn_backArrow.setOnClickListener(new View.OnClickListener()
@@ -122,6 +131,52 @@ public class OrderActivity extends AppCompatActivity
 
     private void setButtonClicks()
     {
+        btnBackToShopping.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (!order.getList().isEmpty())
+                {
+                    Intent intent = new Intent();
+                    intent.putExtra("currentOrder", order);
+                    setResult(ACTIVITY_RESULT, intent);
+                    onBackPressed();
+                }
+                else
+                {
+                    onBackPressed();
+                }
+            }
+        });
 
+        btnPay.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                AlertDialog.Builder builder;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                {
+                    builder = new AlertDialog.Builder(context, android.R.style.Theme_Material_Dialog_Alert);
+                }
+                else
+                {
+                    builder = new AlertDialog.Builder(context);
+                }
+                builder.setTitle("Obrigado!")
+                        .setMessage("Seu pagamento foi realizado com sucesso, agradecemos a preferênica.")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                setResult(2);
+                                onBackPressed();
+                            }
+                        })
+                        .setIcon(R.drawable.check)
+                        .show();
+            }
+        });
     }
 }

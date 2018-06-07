@@ -22,6 +22,7 @@ import java.util.List;
 
 import br.com.arthurmunhoz.sandwichstartup.R;
 import br.com.arthurmunhoz.sandwichstartup.adapters.SandwichAdapter;
+import br.com.arthurmunhoz.sandwichstartup.model.Order;
 import br.com.arthurmunhoz.sandwichstartup.model.Sandwich;
 import br.com.arthurmunhoz.sandwichstartup.utils.Callbacks;
 import br.com.arthurmunhoz.sandwichstartup.utils.Utils;
@@ -29,13 +30,14 @@ import br.com.arthurmunhoz.sandwichstartup.utils.Utils;
 public class SandwichesListActivity extends AppCompatActivity implements SandwichAdapter.SandwichAdapterClickHandler, Serializable
 {
     //Declaring variables
+    private final static int ACTIVITY_RESULT = 1;
     private RecyclerView rvSandwichList;
     private ProgressBar progressBar;
     private Context context;
     private SandwichAdapter mAdapter;
     private LinearLayoutManager linearLayoutManager;
     private Callbacks sandwichListaCallbacks;
-    private List<Sandwich> sandwichList = new ArrayList<>();
+    private Order order = new Order();
 
     /* *****************************
                 ON CREATE
@@ -47,7 +49,6 @@ public class SandwichesListActivity extends AppCompatActivity implements Sandwic
         setContentView(R.layout.activity_sandwiches_list);
 
         setUpUi();
-        setButtonClicks();
 
         mAdapter = new SandwichAdapter(this, this);
         linearLayoutManager = new LinearLayoutManager(context);
@@ -91,21 +92,13 @@ public class SandwichesListActivity extends AppCompatActivity implements Sandwic
         window.setNavigationBarColor(ContextCompat.getColor(SandwichesListActivity.this, R.color.yellow_logo));
     }
 
-    /* *****************************
-            SET BUTTON CLICKS
-     ******************************/
-    private void setButtonClicks()
-    {
-
-    }
-
     @Override
     public void onClick(Sandwich sandwich)
     {
         Intent intent = new Intent(SandwichesListActivity.this, SandwichDetailsActivity.class);
         intent.putExtra("sandwich", sandwich);
 
-        startActivity(intent);
+        startActivityForResult(intent, ACTIVITY_RESULT);
     }
 
     /* *****************************
@@ -145,7 +138,7 @@ public class SandwichesListActivity extends AppCompatActivity implements Sandwic
             @Override
             protected Void doInBackground(Void... voids)
             {
-                sandwichList = Utils.requestSandwichesList(sandwichListaCallbacks);
+                order.setList(Utils.requestSandwichesList(sandwichListaCallbacks));
 
                 return null;
             }
@@ -156,14 +149,35 @@ public class SandwichesListActivity extends AppCompatActivity implements Sandwic
                 super.onPostExecute(aVoid);
 
                 //Parsing ingredients
-                sandwichList = Utils.countIngredients(sandwichList);
+                order.setList(Utils.countIngredients(order.getList()));
 
-                mAdapter.setSandwichData(sandwichList);
+                mAdapter.setSandwichData(order.getList());
                 mAdapter.notifyDataSetChanged();
 
                 progressBar.setVisibility(View.GONE);
                 rvSandwichList.setVisibility(View.VISIBLE);
             }
         }.execute();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (resultCode)
+        {
+            case 1:
+                if (data.getExtras() != null)
+                {
+                    order = data.getParcelableExtra("currentOrder");
+                }
+                break;
+
+            case 2:
+                finish();
+                break;
+        }
+
     }
 }

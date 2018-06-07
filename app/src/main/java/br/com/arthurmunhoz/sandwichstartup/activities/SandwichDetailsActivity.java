@@ -92,7 +92,7 @@ public class SandwichDetailsActivity extends AppCompatActivity
             actionBar.setCustomView(mCustomView);
             actionBar.setDisplayShowCustomEnabled(true);
             Toolbar parent = (Toolbar) mCustomView.getParent();
-            parent.setContentInsetsAbsolute(0,0);
+            parent.setContentInsetsAbsolute(0, 0);
 
             tvTitle = mCustomView.findViewById(R.id.tvTitle);
             tvTitle.setText(sandwich.getName());
@@ -103,6 +103,14 @@ public class SandwichDetailsActivity extends AppCompatActivity
                 @Override
                 public void onClick(View view)
                 {
+                    if (!order.getList().isEmpty())
+                    {
+                        Intent intent = new Intent();
+                        intent.putExtra("currentOrder", order);
+                        setResult(ACTIVITY_RESULT, intent);
+                        onBackPressed();
+                    }
+
                     finish();
                 }
             });
@@ -152,7 +160,7 @@ public class SandwichDetailsActivity extends AppCompatActivity
                 Intent intent = new Intent(SandwichDetailsActivity.this, OrderActivity.class);
                 intent.putExtra("order", order);
 
-                startActivity(intent);
+                startActivityForResult(intent, 2);
             }
         });
     }
@@ -184,6 +192,11 @@ public class SandwichDetailsActivity extends AppCompatActivity
                 tvPrice.setText("R$ " + sandwich.getPrice());
 
                 int k = 0;
+                break;
+
+            case 2:
+                setResult(2);
+                finish();
                 break;
 
         }

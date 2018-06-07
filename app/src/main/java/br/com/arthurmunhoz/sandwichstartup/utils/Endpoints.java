@@ -2,7 +2,7 @@ package br.com.arthurmunhoz.sandwichstartup.utils;
 
 import android.net.Network;
 
-public class Constants
+public class Endpoints
 {
     // Base URL for requests to the server
     public static final String BASE_URL = "http://192.168.0.17:8080";

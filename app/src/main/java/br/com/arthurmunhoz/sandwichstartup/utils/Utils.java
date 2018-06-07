@@ -65,8 +65,8 @@ public class Utils
         final String[] jsonDataSandwich = {null};
         final String[] jsonDataIngredients = {null};
 
-        String urlS = Constants.BASE_URL + Constants.SANDWICH_LIST;
-        String urlI = Constants.BASE_URL + Constants.INGREDIENTS_LIST;
+        String urlS = Endpoints.BASE_URL + Endpoints.SANDWICH_LIST;
+        String urlI = Endpoints.BASE_URL + Endpoints.INGREDIENTS_LIST;
 
         HttpUrl routeS = HttpUrl.parse(urlS);
         HttpUrl routeI = HttpUrl.parse(urlI);
@@ -316,7 +316,7 @@ public class Utils
 
         String offerData = null;
 
-        String url = Constants.BASE_URL + Constants.OFFERS;
+        String url = Endpoints.BASE_URL + Endpoints.OFFERS;
 
         HttpUrl route = HttpUrl.parse(url);
 
@@ -406,7 +406,7 @@ public class Utils
 
         String ingredientData = null;
 
-        String url = Constants.BASE_URL + Constants.INGREDIENTS_LIST;
+        String url = Endpoints.BASE_URL + Endpoints.INGREDIENTS_LIST;
 
         HttpUrl route = HttpUrl.parse(url);
 
@@ -535,6 +535,8 @@ public class Utils
     public static float calculateSandwichCustomizedPrice(Sandwich sandwich)
     {
         float price = 0;
+        int meatCounter = 0;
+        int cheeseCounter = 0;
         String ingredients = sandwich.getIngredients();
         String[] ingredientsArray = ingredients.split("\n");
 
@@ -552,10 +554,12 @@ public class Utils
 
                 case "Queijo":
                     price += 1.50;
+                    cheeseCounter++;
                     break;
 
                 case "Hamburguer de Carne":
                     price += 3.00;
+                    meatCounter++;
                     break;
 
                 case "Pão com gergelim":
@@ -569,6 +573,30 @@ public class Utils
                 default:
                     price += 0.00;
             }
+        }
+
+        //Detectando promoções e ajustando o preço
+        //OBS: Só é possível se encaixar em UMA promoção
+        //LIGHT
+        if (ingredients.contains("Alface") && !ingredients.contains("Bacon"))
+        {
+            price = (float) (price * 0.9);
+            return price;
+        }
+
+        //MUITA CARNE
+        int meatRest = meatCounter/3;
+        for (int i=0; i<meatRest; i++)
+        {
+            price -= 3.00;
+            return price;
+        }
+
+        //MUITO QUEIJO
+        int cheeseRest = cheeseCounter/3;
+        for (int i=0; i<cheeseRest; i++)
+        {
+            price -= 1.00;
         }
 
         return price;
