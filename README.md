@@ -16,6 +16,7 @@
 # - Login de usuários cadastrados
 # - Implementação do pagamento
 # - Melhorias na interface
+# - Inclusão de teste automatizados
 
 # Justificativa para escolha do design de código:
 # 
