@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">SandwichStartUp</string>
+    <string name="btnSandwiches">Sanduíches</string>
+    <string name="btnSales">Promoções</string>
+    <string name="item_ingredients">Ingredientes:</string>
+
+    <!-- UTILS -->
+    <string name="http_response_failed">Erro ao executar tarefa, tente novamente.</string>
+    <string name="http_response_null">Resposta do servidor: null</string>
+
+    <!-- SANDWICH DETAILS ACTITIVY -->
+    <string name="sd_price">PREÇO</string>
+    <string name="sd_ingredients">INGREDIENTES</string>
+    <string name="sd_description">DESCRIÇÃO</string>
+    <string name="sd_customize">CUSTOMIZAR</string>
+    <string name="sd_add_to_cart">ADICIONAR AO CARRINHO</string>
+
+    <!-- OFFERS ACTIVITY -->
+    <string name="oa_header">Customize seu lanche de acordo com nossas promoções e <b>obtenha descontos</b>!</string>
+
+    <!-- CUSTOMIZE ACTIVITY -->
+    <string name="ca_header">Adicione ingredientes ao sanduíche e deixe-o do <b>do seu jeito</b>!</string>
+
+    <!-- ORDER ACTIVITY -->
+    <string name="order_title">Pedido</string>
+    <string name="order_pay">Pagar</string>
+    <string name="order_back">Voltar</string>
+
+</resources>

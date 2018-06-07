@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="br.com.arthurmunhoz.sandwichstartup">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="Snacks&amp;Sandwiches"
+        android:roundIcon="@drawable/app_icon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!--
+        *************************
+            MENU ACTIVITY
+        **************************
+        -->
+        <activity
+            android:name=".activities.MenuActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+        *************************
+        SANDWICHES LIST ACTIVITY
+        **************************
+        -->
+        <activity
+            android:name=".activities.SandwichesListActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+
+        <!--
+        *************************
+        SANDWICHES DETAILS ACTIVITY
+        **************************
+        -->
+        <activity android:name=".activities.SandwichDetailsActivity" />
+
+        <!--
+        *************************
+        OFFERS ACTIVITY
+        **************************
+        -->
+        <activity android:name=".activities.OffersActivity" />
+
+        <!--
+        *************************
+        CUSTOMIZE ACTIVITY
+        **************************
+        -->
+        <activity
+            android:name=".activities.CustomizeActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name=".activities.OrderActivity"></activity>
+    </application>
+
+</manifest>

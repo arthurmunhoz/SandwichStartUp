@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/diner_background"
+    android:padding="8dp"
+    tools:context=".activities.SandwichDetailsActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llButtons">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="180dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:elevation="12dp" />
+
+            <!-- =========== -->
+            <!-- INGREDIENTS -->
+            <!-- =========== -->
+            <TextView
+                android:id="@+id/tvIngredientsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ivPhoto"
+                android:layout_marginTop="16dp"
+                android:padding="4dp"
+                android:text="@string/sd_ingredients"
+                android:textAlignment="center"
+                android:textColor="@color/yellow_logo"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvIngredientsTitle"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textAlignment="center"
+                android:text="Pão, queijo, alface, tomate, hambúrguer 160g, e um delicioso molho caseiro da S&amp;S."
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvIngredients"
+                android:layout_marginTop="16dp"
+                android:background="@color/yellow_logo"
+                android:padding="4dp"
+                android:text="R$ 5.50"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="22sp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="16dp"
+        android:weightSum="2">
+
+        <ImageView
+            android:id="@+id/btnAddToCart"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="8dp"
+            android:padding="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/custom_button_background"
+            android:elevation="12dp" />
+
+        <ImageView
+            android:id="@+id/btn_customize"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:padding="12dp"
+            android:background="@drawable/custom_button_background"
+            android:elevation="12dp"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+</RelativeLayout>
