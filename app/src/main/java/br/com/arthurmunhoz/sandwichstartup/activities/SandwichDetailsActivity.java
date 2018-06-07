@@ -190,8 +190,6 @@ public class SandwichDetailsActivity extends AppCompatActivity
                 tvTitle.setText(sandwich.getName());
                 tvIngredients.setText(sandwich.getIngredients());
                 tvPrice.setText("R$ " + sandwich.getPrice());
-
-                int k = 0;
                 break;
 
             case 2:
