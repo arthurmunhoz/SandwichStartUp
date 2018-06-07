@@ -1,5 +1,5 @@
 ####################################
-## Relatório de entra             ##
+## Relatório de entrega           ##
 ## Autor: Arthur Regatieri Munhoz ##
 ## Data: 07/06/2018               ##
 ####################################
